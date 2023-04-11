@@ -18,8 +18,13 @@ function ProjectDetailsPage(props) {
   // and retrieves the project by id
   const getProject = () => {
     //  <== ADD A NEW FUNCTION
+
+    const storedToken = localStorage.getItem("authToken");
+
     axios
-      .get(`${process.env.REACT_APP_API}/api/projects/${projectId}`)
+      .get(`${process.env.REACT_APP_API}/api/projects/${projectId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         const oneProject = response.data;
         setProject(oneProject);

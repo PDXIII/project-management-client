@@ -11,8 +11,13 @@ function ProjectListPage() {
   const [projects, setProjects] = useState(null);
 
   const getAllProjects = () => {
+    // Get the token from the localStorage
+    const storedToken = localStorage.getItem("authToken");
+
     axios
-      .get(process.env.REACT_APP_API + "/projects")
+      .get(process.env.REACT_APP_API + "/projects", {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => setProjects(response.data))
       .catch((error) => console.log(error));
   };

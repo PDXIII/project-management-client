@@ -29,6 +29,7 @@
   100% {
     top: 0rem;
     left: 0rem;
+    /* Check if this works with relative values */
     width: 8rem;
     height: 8rem;
     opacity: 0;

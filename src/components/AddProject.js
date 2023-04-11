@@ -18,8 +18,13 @@ function AddProject(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // Get the token from the localStorage
+    const storedToken = localStorage.getItem("authToken");
+
     axios
-      .post(process.env.REACT_APP_API + "/projects", details)
+      .post(process.env.REACT_APP_API + "/projects", details, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         console.log("response: ", response);
         props.refreshProjects();
