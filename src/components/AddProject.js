@@ -3,8 +3,6 @@
 import { useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5005/api";
-
 function AddProject(props) {
   const [details, setDetails] = useState({
     title: "",
@@ -21,7 +19,7 @@ function AddProject(props) {
     event.preventDefault();
 
     axios
-      .post(API_URL + "/projects", details)
+      .post(process.env.REACT_APP_API + "/projects", details)
       .then((response) => {
         console.log("response: ", response);
         props.refreshProjects();
@@ -34,6 +32,7 @@ function AddProject(props) {
       <h3>Add Project</h3>
 
       <form
+        className="grid"
         onSubmit={(e) => {
           handleSubmit(e);
         }}

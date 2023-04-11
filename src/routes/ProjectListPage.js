@@ -5,15 +5,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import AddProject from "../components/AddProject";
-
-const API_URL = "http://localhost:5005/api";
+import ProjectCard from "../components/ProjectCard";
 
 function ProjectListPage() {
   const [projects, setProjects] = useState(null);
 
   const getAllProjects = () => {
     axios
-      .get(API_URL + "/projects")
+      .get(process.env.REACT_APP_API + "/projects")
       .then((response) => setProjects(response.data))
       .catch((error) => console.log(error));
   };
@@ -22,7 +21,7 @@ function ProjectListPage() {
   // by setting the empty dependency array - []
   useEffect(() => {
     getAllProjects();
-  }, [projects]);
+  }, []);
 
   return (
     <div className="ProjectListPage">
@@ -36,13 +35,7 @@ const ProjectList = (props) => {
   return (
     <div className="ProjectList">
       {props.projects.map((project) => {
-        return (
-          <div className="ProjectCard card" key={project._id}>
-            <Link to={`/projects/${project._id}`}>
-              <h3>{project.title}</h3>
-            </Link>
-          </div>
-        );
+        return <ProjectCard key={project._id} {...project} />;
       })}
     </div>
   );
